@@ -13,11 +13,11 @@ public class ContactPage {
     WebDriver driver;
     WebDriverWait wait;
 
-    final By submitButton = By.xpath("//a[normalize-space()='Submit']");
-    final By forenameField = By.id("forename");
-    final By emailField = By.id("email");
-    final By messageField = By.id("message");
-    final By errorMessages = By.cssSelector(".alert.alert-error.ng-scope");
+    private final By submitButton = By.xpath("//a[normalize-space()='Submit']");
+    private final By forenameField = By.id("forename");
+    private final By emailField = By.id("email");
+    private final By messageField = By.id("message");
+    private final By errorMessages = By.cssSelector(".alert.alert-error.ng-scope");
 
     public ContactPage(WebDriver driver) {
         this.driver = driver;
@@ -43,12 +43,23 @@ public class ContactPage {
 
 
     public void fillMandatoryFields(String forename, String email, String message) {
-        driver.findElement(forenameField).sendKeys(forename);
-        driver.findElement(emailField).sendKeys(email);
-        driver.findElement(messageField).sendKeys(message);
+        fillTextField(forenameField, forename);
+        fillTextField(emailField, email);
+        fillTextField(messageField, message);
+    }
+
+    private void fillTextField(By locator, String value) {
+        WebElement element = driver.findElement(locator);
+        element.clear();
+        element.sendKeys(value);
     }
 
     public boolean areErrorsGone() {
-        return wait.until(ExpectedConditions.invisibilityOfElementLocated(errorMessages));
+        try {
+            return wait.until(ExpectedConditions.invisibilityOfElementLocated(errorMessages));
+        } catch (Exception e) {
+            System.out.println("Error while checking for errors: " + e.getMessage());
+            return false;
+        }
     }
 }

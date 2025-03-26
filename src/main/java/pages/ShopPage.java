@@ -28,8 +28,11 @@ public class ShopPage {
 
     private void buyItem(By itemLocator, int quantity) {
         for (int i = 0; i < quantity; i++) {
+            WebDriverWait waitForClickable = new WebDriverWait(driver, Duration.ofSeconds(10));
+            waitForClickable.until(ExpectedConditions.elementToBeClickable(itemLocator));
             driver.findElement(itemLocator).click();
         }
+
     }
 
     public void buyStuffedFrog(int quantity) {

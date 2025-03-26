@@ -2,14 +2,23 @@ package testCases;
 
 import base.BaseClass;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.ContactPage;
 import pages.HomePage;
 
 public class ContactPageFieldValidationTest extends BaseClass {
 
-    @Test
-    public void TC001(){
+    @DataProvider(name = "contactFormData")
+    public Object[][] dataProvider() {
+        return new Object[][]{
+                {"Dasun", "dasun@example.com", "This is a test message."},
+                {"Samitha", "samitha@example.com", "Test message 2."}
+        };
+    }
+
+    @Test(dataProvider = "contactFormData")
+    public void TC001(String forename, String email, String message) {
         HomePage homePage = new HomePage(driver);
         homePage.navigateToContactPage();
 
@@ -18,7 +27,7 @@ public class ContactPageFieldValidationTest extends BaseClass {
         contactPage.clickSubmit();
         Assert.assertTrue(contactPage.areErrorsDisplayed(), "Error messages should be displayed!");
 
-        contactPage.fillMandatoryFields("Dasun", "dasun@example.com", "This is a test message.");
+        contactPage.fillMandatoryFields(forename, email, message);
 
         Assert.assertTrue(contactPage.areErrorsGone(), "Error messages should disappear after filling in fields!");
     }

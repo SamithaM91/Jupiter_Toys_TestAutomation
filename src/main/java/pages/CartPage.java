@@ -23,6 +23,15 @@ public class CartPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
+    private double parsePrice(String price) {
+        try {
+            return Double.parseDouble(price.replace("$", "").trim());
+        } catch (NumberFormatException e) {
+            System.out.println("Error parsing price: " + price);
+            return 0.0;
+        }
+    }
+
     public boolean isOnCartPage() {
         return wait.until(ExpectedConditions.urlContains("/cart"));
     }
@@ -34,8 +43,9 @@ public class CartPage {
             this.row = row;
         }
 
+
         public double getPrice() {
-            return Double.parseDouble(row.findElement(By.cssSelector("td:nth-child(2)")).getText().replace("$", ""));
+            return parsePrice(row.findElement(By.cssSelector("td:nth-child(2)")).getText());
         }
 
         public int getQuantity() {
@@ -43,7 +53,7 @@ public class CartPage {
         }
 
         public double getSubtotal() {
-            return Double.parseDouble(row.findElement(By.cssSelector("td:nth-child(4)")).getText().replace("$", ""));
+            return parsePrice(row.findElement(By.cssSelector("td:nth-child(4)")).getText());
         }
 
         public boolean verifySubtotal() {
@@ -69,8 +79,7 @@ public class CartPage {
     }
 
     public double getDisplayedTotal() {
-        //return Double.parseDouble(driver.findElement(totalAmount).getText().replace("$", ""));
-        return Double.parseDouble(driver.findElement(totalAmount).getText().replaceAll("[^0-9.]", ""));
+        return parsePrice(driver.findElement(totalAmount).getText().replaceAll("[^0-9.]", ""));
     }
 
 
