@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="JupyterToya Test Suite" parallel="classes" thread-count="3">
+    <test name="All Tests" parallel="classes" thread-count="3">
+        <classes>
+            <class name="testCases.ContactPageFieldValidationTest"/>
+            <class name="testCases.ContactPageSubmitValidationTest"/>
+            <class name="testCases.ShoppingCartValidationTest"/>
+        </classes>
+    </test>
+</suite>
