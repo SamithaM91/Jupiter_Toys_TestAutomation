@@ -2,6 +2,7 @@ package base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
@@ -17,12 +18,15 @@ public class BaseClass {
     @BeforeMethod
     public void openPage(){
 
-        String browser = "chrome";
+        String browser = "chrome"; //define the testing browser
 
         switch(browser.toLowerCase()) {
             case "chrome":
-                 driver = new ChromeDriver();
-                 break;
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--headless");
+                options.addArguments("--disable-gpu");
+                driver = new ChromeDriver(options);
+                break;
             case "firefox":
                 driver = new FirefoxDriver();
                 break;
