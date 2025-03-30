@@ -20,22 +20,14 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                bat 'mvn test'  // Runs TestNG tests
+                bat 'mvn test'  // Runs TestNG tests. If bash is using sh 'mvn clean test'
             }
         }
+    }
 
-//         stage('Publish Test Results') {
-//             post {
-//                 always {
-//                     junit '**/target/surefire-reports/*.xml'  // Publishes TestNG results
-//                 }
-//             }
+//     post {
+//         always {
+//             archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
 //         }
-    }
-
-    post {
-        always {
-            archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-        }
-    }
+//     }
 }

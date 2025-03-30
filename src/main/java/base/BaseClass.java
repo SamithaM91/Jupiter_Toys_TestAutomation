@@ -39,7 +39,7 @@ public class BaseClass {
 
         }
 
-        driver.manage().window().maximize();
+        driver.manage().window().maximize(); // This might not be required for the CI environments
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://jupiter.cloud.planittesting.com/#/");
     }
