@@ -23,6 +23,7 @@ public class CartPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
+    //Price parsing method with error handling for invalid formats
     private double parsePrice(String price) {
         try {
             return Double.parseDouble(price.replace("$", "").trim());
@@ -32,10 +33,12 @@ public class CartPage {
         }
     }
 
+    //Method to verify user is on the cart page by checking URL
     public boolean isOnCartPage() {
         return wait.until(ExpectedConditions.urlContains("/cart"));
     }
 
+    // CartItem class to encapsulate price, quantity, and subtotal verification
     public class CartItem {
         private final WebElement row;
 
@@ -43,25 +46,28 @@ public class CartPage {
             this.row = row;
         }
 
-
+        //Retrieve and parse item price from the cart row
         public double getPrice() {
             return parsePrice(row.findElement(By.cssSelector("td:nth-child(2)")).getText());
         }
 
+        //Retrieve and parse item quantity from the cart row
         public int getQuantity() {
             return Integer.parseInt(row.findElement(By.cssSelector("td:nth-child(3) input")).getAttribute("value"));
         }
 
+        //Retrieve and parse item subtotal from the cart row
         public double getSubtotal() {
             return parsePrice(row.findElement(By.cssSelector("td:nth-child(4)")).getText());
         }
 
+        //Verify item subtotal is correctly calculated based on price and quantity
         public boolean verifySubtotal() {
             return getSubtotal() == (getPrice() * getQuantity());
         }
     }
 
-
+    //Cart details verification by validating item subtotals and total price
     public boolean verifyCartDetails() {
         List<WebElement> rows = driver.findElements(itemRows);
         double calculatedTotal = 0.0;
@@ -78,6 +84,7 @@ public class CartPage {
         return calculatedTotal == getDisplayedTotal();
     }
 
+    //Extract and parse displayed total amount from the cart summary
     public double getDisplayedTotal() {
         return parsePrice(driver.findElement(totalAmount).getText().replaceAll("[^0-9.]", ""));
     }

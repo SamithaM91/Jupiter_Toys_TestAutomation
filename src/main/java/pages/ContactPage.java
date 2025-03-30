@@ -23,37 +23,36 @@ public class ContactPage {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
-
+    //Check if the user is on the contact page by verifying the URL
     public boolean isOnContactPage() {
         return wait.until(ExpectedConditions.urlContains("/contact"));
     }
-
+    //Click on the submit button on the contact page
     public void clickSubmit() {
         driver.findElement(submitButton).click();
     }
-
+    //Retrieve all error messages displayed on the contact page
     public List<WebElement> getErrorMessages() {
         return driver.findElements(errorMessages);
     }
-
-
+    //Check if error messages are displayed on the contact page
     public boolean areErrorsDisplayed() {
         return !getErrorMessages().isEmpty();
     }
-
-
+    //Fill mandatory fields on the contact page with provided data
     public void fillMandatoryFields(String forename, String email, String message) {
         fillTextField(forenameField, forename);
         fillTextField(emailField, email);
         fillTextField(messageField, message);
     }
 
+    //Helper method to fill text fields with specified values
     private void fillTextField(By locator, String value) {
         WebElement element = driver.findElement(locator);
         element.clear();
         element.sendKeys(value);
     }
-
+    //Check if error messages are no longer visible on the contact page
     public boolean areErrorsGone() {
         try {
             return wait.until(ExpectedConditions.invisibilityOfElementLocated(errorMessages));

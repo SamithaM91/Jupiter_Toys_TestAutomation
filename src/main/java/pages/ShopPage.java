@@ -21,11 +21,11 @@ public class ShopPage {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
-
+    //Check if the user is on the shop page by verifying the URL
     public boolean isOnShopPage() {
         return wait.until(ExpectedConditions.urlContains("/shop"));
     }
-
+    //Method to buy an item multiple times based on specified quantity
     private void buyItem(By itemLocator, int quantity) {
         for (int i = 0; i < quantity; i++) {
             WebDriverWait waitForClickable = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -34,19 +34,19 @@ public class ShopPage {
         }
 
     }
-
+    //Method to buy Stuffed Frog with specified quantity
     public void buyStuffedFrog(int quantity) {
         buyItem(stuffedFrogBuyButton, quantity);
     }
-
+    //Method to buy Fluffy Bunny with specified quantity
     public void buyFluffyBunny(int quantity) {
         buyItem(fluffyBunnyBuyButton, quantity);
     }
-
+    //Method to buy Valentine Bear with specified quantity
     public void buyValentineBear(int quantity) {
         buyItem(valentineBearBuyButton, quantity);
     }
-
+    //Navigate to the shopping cart by clicking the cart button
     public void goToCart() {
         driver.findElement(cartButton).click();
     }

@@ -19,16 +19,19 @@ public class HomePage {
         this.driver = driver;
     }
 
+    //Encapsulate clickable element interaction in a reusable clickLink method
     private void clickLink(By locator) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
         element.click();
     }
 
+    //Add method to navigate to the contact page using reusable clickLink method
     public void navigateToContactPage() {
         clickLink(contactLink);
     }
 
+    //Add method to navigate to the shop page using reusable clickLink method
     public void navigateToShopPage() {
         clickLink(shopLink);
     }
