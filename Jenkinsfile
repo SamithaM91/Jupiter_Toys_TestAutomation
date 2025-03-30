@@ -24,13 +24,13 @@ pipeline {
             }
         }
 
-        stage('Publish Test Results') {
-            post {
-                always {
-                    junit '**/target/surefire-reports/*.xml'  // Publishes TestNG results
-                }
-            }
-        }
+//         stage('Publish Test Results') {
+//             post {
+//                 always {
+//                     junit '**/target/surefire-reports/*.xml'  // Publishes TestNG results
+//                 }
+//             }
+//         }
     }
 
     post {
