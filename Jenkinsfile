@@ -6,11 +6,11 @@ pipeline {
     }
 
     stages {
-        stage('Download source code') {
-            steps {
-                git 'https://github.com/SamithaM91/Jupiter_Toys_TestAutomation.git'  // repository URL
-            }
-        }
+         stage('Checkout') {
+                    steps {
+                        git branch: 'main', url: 'https://github.com/SamithaM91/Jupiter_Toys_TestAutomation.git'
+                    }
+         }
 
         stage('Setup Environment') {
             steps {
