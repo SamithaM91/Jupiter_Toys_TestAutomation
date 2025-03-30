@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        MAVEN_HOME = 'C:\Program Files\apache-maven-3.9.9'  //maven path
+        MAVEN_HOME = 'C:/Program Files/apache-maven-3.9.9'  //maven path
     }
 
     stages {
